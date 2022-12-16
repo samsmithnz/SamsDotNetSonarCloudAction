@@ -67,29 +67,29 @@ runs:
   - name: Cache SonarCloud packages
     uses: actions/cache@v3
     with:
-      path: ~\sonar\cache
+      path: ~/sonar/cache
       key: ${{ runner.os }}-sonar
       restore-keys: ${{ runner.os }}-sonar
   - name: Cache SonarCloud scanner
     id: cache-sonar-scanner
     uses: actions/cache@v3
     with:
-      path: .\.sonar\scanner
+      path: ./.sonar/scanner
       key: ${{ runner.os }}-sonar-scanner
       restore-keys: ${{ runner.os }}-sonar-scanner
   - name: Install SonarCloud scanner
     if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
     shell: pwsh
     run: |
-      New-Item -Path .\.sonar\scanner -ItemType Directory
-      dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
+      New-Item -Path ./.sonar/scanner -ItemType Directory
+      dotnet tool update dotnet-sonarscanner --tool-path ./.sonar/scanner
   - name: Build and analyze
     shell: pwsh
     run: |
-      .\.sonar\scanner\dotnet-sonarscanner begin /k:"${{ inputs.sonarcloud-project }}" /o:"{{ inputs.sonarcloud-organization" /d:sonar.login="${{ inputs.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
+      ./.sonar/scanner/dotnet-sonarscanner begin /k:"${{ inputs.sonarcloud-project }}" /o:"{{ inputs.sonarcloud-organization" /d:sonar.login="${{ inputs.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
       $projectArray = "${{ inputs.projects}}".Split(",")
       for ($i = 0; $i -lt $projectArray.Length; $i++)
       {
          dotnet build $($projectArray[$i])
       }
-      .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ inputs.SONAR_TOKEN }}"
+      ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ inputs.SONAR_TOKEN }}"
