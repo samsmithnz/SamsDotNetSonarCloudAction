@@ -8,7 +8,7 @@ runs:
   using: composite
   steps:
     - name: Split results
-      shell: powershell
+      shell: pwsh
       run: |
         $ProjectArray = "${{ inputs.fileName}}".Split(",")
         #check if the action is being run with a Windows runner
