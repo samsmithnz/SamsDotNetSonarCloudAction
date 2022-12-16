@@ -27,22 +27,22 @@ runs:
     shell: pwsh
     run: |
       #Validate inputs
-      if ("${{ inputs.projects }}" -eq $null")
+      if ("${{ inputs.projects }}" -eq $null)
       {
         echo "Please enter one of more projects, comma separated, input"
         exit 1
       }  
-      if ("${{ inputs.sonarcloud-organization }}" -eq $null")
+      if ("${{ inputs.sonarcloud-organization }}" -eq $null)
       {
         echo "Please enter a sonar organization input"
         exit 1
       }      
-      if ("${{ inputs.sonarcloud-project }}" -eq $null")
+      if ("${{ inputs.sonarcloud-project }}" -eq $null)
       {
         echo "Please enter a sonarcloud project input"
         exit 1
       }
-      if ("${{ inputs.SONAR_TOKEN }}" -eq $null")
+      if ("${{ inputs.SONAR_TOKEN }}" -eq $null)
       {
         echo "Please enter a sonar token input"
         exit 1
