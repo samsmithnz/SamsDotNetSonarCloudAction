@@ -1,19 +1,19 @@
-name: Sonar Cloud composite action to analyze .NET projects
+name: 'Sonar Cloud composite action to analyze .NET projects'
 description: 'Process .NET test results'
 inputs:
-  projects:  # file name of the trx/xml file to process
+  projects:  
     description: 'comma separated list of projects to analyze'
     required: true
   dotnet-version:
     description: 'the .NET version to use with .NET Setup'
     required: true
-    default: 7.0.x
+    default: '7.0.x'
 runs:
   using: composite
   steps:
     - name: Pre-action checks
       shell: pwsh
-      run: |
+      run: |        
         $projectArray = "${{ inputs.fileName}}".Split(",")
         #check if the action is being run with a Windows runner
         echo "$($projectArray.Length) projects found"
@@ -27,4 +27,3 @@ runs:
           echo "This composite action currently only supports Windows runners. Linux is coming soon - probably"
           #exit 1
         }
-  
