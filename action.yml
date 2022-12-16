@@ -2,7 +2,7 @@ name: 'Sonar Cloud composite action to analyze .NET projects'
 description: 'Process .NET test results'
 inputs:
   projects:  
-    description: 'comma separated list of projects to analyze'
+    description: 'comma separated list of projects to analyze. Reminder to use the / separator to be compatible with Linux'
     required: true
   dotnet-version:
     description: 'the .NET version to use on .NET Setup'
