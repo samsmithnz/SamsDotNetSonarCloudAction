@@ -19,7 +19,7 @@ runs:
         echo "$($projectArray.Length) projects found"
         for ($i = 0; $i -lt $projectArray.Length; $i++)
         {
-           echo "Project found: $($projectArray[$i])"
+           write-host "Project found: $($projectArray[$i])"
         }
         echo "Runner os: ${{ runner.os }}"
         if ("${{ runner.os }}" -ne 'Windows')        
