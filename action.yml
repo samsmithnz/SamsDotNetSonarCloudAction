@@ -12,7 +12,7 @@ runs:
   using: 'composite'
   steps:
   - name: 'Pre-action checks'
-    shell: powershell
+    shell: pwsh
     run: |
       $projectArray = "${{ inputs.projects}}".Split(",")
       #check if the action is being run with a Windows runner
