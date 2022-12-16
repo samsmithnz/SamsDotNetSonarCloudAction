@@ -5,11 +5,17 @@ inputs:
     description: 'comma separated list of projects to analyze'
     required: true
   dotnet-version:
-    description: 'the .NET version to use with .NET Setup'
+    description: 'the .NET version to use on .NET Setup'
     required: true
     default: '7.0.x'
-  sonar-token:
-    description: 'the sonar token secret. Note that GitHub will keep this as a secret (***) as long is the input is a secret"
+  sonarcloud-organization:
+    description: 'the sonarcloud organization name. For example, "samsmithnz-github"'
+    required: true
+  sonarcloud-project:
+    description: 'the sonarcloud project name. For example, "samsmithnz_dotnetsample"'
+    required: true
+  SONAR_TOKEN:
+    description: 'the sonar token secret. Note that GitHub will keep this as a secret (***) as long is the input is a secret'
     required: true
 runs:
   using: 'composite'
@@ -30,7 +36,7 @@ runs:
         echo "This composite action currently only supports Windows runners. Linux is coming soon - probably"
         #exit 1
       }
-      if ("${{ inputs.sonar-token }} -eq $null")
+      if ("${{ inputs.SONAR_TOKEN }} -eq $null")
       {
         echo "Please enter a sonar token input"
         exit 1
@@ -71,7 +77,7 @@ runs:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     shell: powershell
     run: |
-      .\.sonar\scanner\dotnet-sonarscanner begin /k:"samsmithnz_GitHubActionsDotNet" /o:"samsmithnz-github" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
+      .\.sonar\scanner\dotnet-sonarscanner begin /k:"${{ inputs.sonarcloud-project }}" /o:"{{ inputs.sonarcloud-organization" /d:sonar.login="${{ inputs.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
       $projectArray = "${{ inputs.projects}}".Split(",")
       for ($i = 0; $i -lt $projectArray.Length; $i++)
       {
