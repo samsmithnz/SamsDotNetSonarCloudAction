@@ -75,7 +75,7 @@ runs:
       New-Item -Path .\.sonar\scanner -ItemType Directory
       dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
   - name: Build and analyze
-    shell: powershell
+    shell: pwsh
     run: |
       .\.sonar\scanner\dotnet-sonarscanner begin /k:"${{ inputs.sonarcloud-project }}" /o:"{{ inputs.sonarcloud-organization" /d:sonar.login="${{ inputs.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
       $projectArray = "${{ inputs.projects}}".Split(",")
