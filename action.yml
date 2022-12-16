@@ -17,7 +17,10 @@ runs:
         $projectArray = "${{ inputs.fileName}}".Split(",")
         #check if the action is being run with a Windows runner
         echo "$($projectArray.Length) projects found"
-        Foreach ($project in $projectArray) { echo "Project found: $project"}
+        for ($i = 0; $i -lt $projectArray.Length; $i++)
+        {
+           echo "Project found: $projectArray[$i]"
+        }
         echo "Runner os: ${{ runner.os }}"
         if ("${{ runner.os }}" -ne 'Windows')        
         {
