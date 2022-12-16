@@ -32,7 +32,7 @@ jobs:
           
           
   # checkout the code from this branch, and then test the action from here
-  test: 
+  windowsTest: 
     runs-on: windows-latest
     steps:    
       - name: checkout the code from this branch
@@ -42,10 +42,13 @@ jobs:
       - name: Test this repo
         uses: ./ # the ./ runs the action.yml in this repo 
         with:
-          projects: 'CP,CI,CD,CM'
+          projects: 'Sample\ConsoleApp1\ConsoleApp1.csproj'
+          dotnet-version: '7.0.x'
+          sonarcloud-organization: samsmithnz-github
+          sonar-project: samsmithnz_SamsDotNetSonarCloudAction
           sonar-token: ${{ secrets.SONAR_TOKEN }}
 
-  test2: 
+  linuxTest: 
     runs-on: ubuntu-latest
     steps:    
       - name: checkout the code from this branch
@@ -55,14 +58,18 @@ jobs:
       - name: Test this repo
         uses: ./ # the ./ runs the action.yml in this repo 
         with:
-          projects: 'CI'
+          projects: 'Sample\ConsoleApp1\ConsoleApp1.csproj'
+          dotnet-version: '7.0.x'
+          sonarcloud-organization: samsmithnz-github
+          sonar-project: samsmithnz_SamsDotNetSonarCloudAction
           sonar-token: ${{ secrets.SONAR_TOKEN }}
 
   release:
     runs-on: windows-latest
     needs: 
     - build      
-    - test
+    - windowsTest
+    - linuxTest
     if: github.ref == 'refs/heads/main'
     steps:   
     - name: Display GitVersion outputs
