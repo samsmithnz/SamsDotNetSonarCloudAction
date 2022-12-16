@@ -11,19 +11,19 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: 'Pre-action checks'
-      shell: powershell
-      run: |        
-        $projectArray = "${{ inputs.fileName}}".Split(",")
-        #check if the action is being run with a Windows runner
-        echo "$($projectArray.Length) projects found"
-        for ($i = 0; $i -lt $projectArray.Length; $i++)
-        {
-           echo "Project found: $($projectArray[$i])"
-        }
-        echo "Runner os: ${{ runner.os }}"
-        if ("${{ runner.os }}" -ne 'Windows')        
-        {
-          echo "This composite action currently only supports Windows runners. Linux is coming soon - probably"
-          #exit 1
-        }
+  - name: 'Pre-action checks'
+    shell: powershell
+    run: |
+      $projectArray = "${{ inputs.fileName}}".Split(",")
+      #check if the action is being run with a Windows runner
+      echo "$($projectArray.Length) projects found"
+      for ($i = 0; $i -lt $projectArray.Length; $i++)
+      {
+         echo "Project found: $($projectArray[$i])"
+      }
+      echo "Runner os: ${{ runner.os }}"
+      if ("${{ runner.os }}" -ne 'Windows')
+      {
+        echo "This composite action currently only supports Windows runners. Linux is coming soon - probably"
+        #exit 1
+      }
