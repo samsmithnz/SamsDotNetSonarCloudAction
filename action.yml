@@ -8,9 +8,9 @@ inputs:
     description: 'the .NET version to use on .NET Setup'
     required: true
     default: '7.0.x'
-  GITHUB_TOKEN:
-    description: 'the secrets.GITHUB token that needs to be passed in. Note that GitHub will keep this as a secret (***) as long is the input is a secret'
-    required: false
+  #GITHUB_TOKEN:
+  #  description: 'the secrets.GITHUB token that needs to be passed in. Note that GitHub will keep this as a secret (***) as long is the input is a secret'
+  #  required: false
   sonarcloud-organization:
     description: 'the sonarcloud organization name. For example, "samsmithnz-github"'
     required: true
