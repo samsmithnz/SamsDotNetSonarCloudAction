@@ -8,6 +8,9 @@ inputs:
     description: 'the .NET version to use on .NET Setup'
     required: true
     default: '7.0.x'
+  GITHUB_TOKEN:
+    description: 'the secrets.GITHUB token that needs to be passed in. Note that GitHub will keep this as a secret (***) as long is the input is a secret'
+    required: false
   sonarcloud-organization:
     description: 'the sonarcloud organization name. For example, "samsmithnz-github"'
     required: true
@@ -72,9 +75,6 @@ runs:
       New-Item -Path .\.sonar\scanner -ItemType Directory
       dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
   - name: Build and analyze
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     shell: powershell
     run: |
       .\.sonar\scanner\dotnet-sonarscanner begin /k:"${{ inputs.sonarcloud-project }}" /o:"{{ inputs.sonarcloud-organization" /d:sonar.login="${{ inputs.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
@@ -83,4 +83,4 @@ runs:
       {
          dotnet build $($projectArray[$i])
       }
-      .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+      .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ inputs.SONAR_TOKEN }}"
