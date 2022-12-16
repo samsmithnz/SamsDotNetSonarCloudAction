@@ -43,6 +43,7 @@ jobs:
         uses: ./ # the ./ runs the action.yml in this repo 
         with:
           projects: 'CP,CI,CD,CM'
+          sonar-token: ${{ secrets.SONAR_TOKEN }}
 
   test2: 
     runs-on: ubuntu-latest
@@ -55,3 +56,4 @@ jobs:
         uses: ./ # the ./ runs the action.yml in this repo 
         with:
           projects: 'CI'
+          sonar-token: ${{ secrets.SONAR_TOKEN }}
