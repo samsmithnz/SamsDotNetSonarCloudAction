@@ -26,24 +26,33 @@ runs:
   - name: 'Pre-action checks'
     shell: pwsh
     run: |
-      $projectArray = "${{ inputs.projects}}".Split(",")
-      #check if the action is being run with a Windows runner
-      echo "$($projectArray.Length) projects found"
-      for ($i = 0; $i -lt $projectArray.Length; $i++)
+      #Validate inputs
+      if ("${{ inputs.projects }}" -eq $null")
       {
-         echo "Project found: $($projectArray[$i])"
-      }
-      echo "Runner os: ${{ runner.os }}"
-      if ("${{ runner.os }}" -ne 'Windows')
+        echo "Please enter one of more projects, comma separated, input"
+        exit 1
+      }  
+      if ("${{ inputs.sonarcloud-organization }}" -eq $null")
       {
-        echo "This composite action currently only supports Windows runners. Linux is coming soon - probably"
-        #exit 1
+        echo "Please enter a sonar organization input"
+        exit 1
+      }      
+      if ("${{ inputs.sonarcloud-project }}" -eq $null")
+      {
+        echo "Please enter a sonarcloud project input"
+        exit 1
       }
-      if ("${{ inputs.SONAR_TOKEN }} -eq $null")
+      if ("${{ inputs.SONAR_TOKEN }}" -eq $null")
       {
         echo "Please enter a sonar token input"
         exit 1
       }
+      #echo "Runner os: ${{ runner.os }}"
+      #if ("${{ runner.os }}" -ne 'Windows')
+      #{
+      #  echo "This composite action currently only supports Windows runners. Linux is coming soon - probably"
+      #  #exit 1
+      #}
   - name: Set up JDK 11
     uses: actions/setup-java@v1
     with:
