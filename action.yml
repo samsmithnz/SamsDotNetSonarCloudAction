@@ -14,7 +14,7 @@ runs:
         #check if the action is being run with a Windows runner
         echo "$($ProjectArray.Length) projects found"
         echo "Runner os ${{ runner.os }}"
-        if (${{ runner.os }} -ne 'Windows')        
+        if ("${{ runner.os }}" -ne 'Windows')        
         {
           echo "This composite action currently only supports Windows runners. Linux is coming soon - maybe"
         }
