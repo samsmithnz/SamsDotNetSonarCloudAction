@@ -45,8 +45,8 @@ jobs:
           projects: 'Sample\ConsoleApp1\ConsoleApp1.csproj'
           dotnet-version: '7.0.x'
           sonarcloud-organization: samsmithnz-github
-          sonar-project: samsmithnz_SamsDotNetSonarCloudAction
-          sonar-token: ${{ secrets.SONAR_TOKEN }}
+          sonarcloud-project: samsmithnz_SamsDotNetSonarCloudAction
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   linuxTest: 
     runs-on: ubuntu-latest
@@ -58,11 +58,11 @@ jobs:
       - name: Test this repo
         uses: ./ # the ./ runs the action.yml in this repo 
         with:
-          projects: 'Sample\ConsoleApp1\ConsoleApp1.csproj'
+          projects: '/Sample/ConsoleApp1/ConsoleApp1.csproj'
           dotnet-version: '7.0.x'
           sonarcloud-organization: samsmithnz-github
-          sonar-project: samsmithnz_SamsDotNetSonarCloudAction
-          sonar-token: ${{ secrets.SONAR_TOKEN }}
+          sonarcloud-project: samsmithnz_SamsDotNetSonarCloudAction
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   release:
     runs-on: windows-latest
