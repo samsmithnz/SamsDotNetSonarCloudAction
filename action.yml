@@ -1,0 +1,20 @@
+name: Sonar Cloud composite action to analyze .NET projects
+description: 'Process .NET test results'
+inputs:
+  fileName:  # file name of the trx/xml file to process
+    description: 'comma separated list of projects to analyze'
+    required: true
+runs:
+  using: composite
+  steps:
+    - name: Split results
+      shell: powershell
+      run: |
+        $ProjectArray = "${{ intputs.fileName}}".Split(",")
+        #check if the action is being run with a Windows runner
+        
+        if ($runner.OS -ne 'Windows')
+        {
+          echo "This composite action currently only supports Windows runners. Linux is coming soon - maybe"
+        }
+  
