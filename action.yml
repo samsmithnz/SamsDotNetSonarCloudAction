@@ -17,5 +17,6 @@ runs:
         if ("${{ runner.os }}" -ne 'Windows')        
         {
           echo "This composite action currently only supports Windows runners. Linux is coming soon - maybe"
+          exit 1
         }
   
