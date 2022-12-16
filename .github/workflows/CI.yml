@@ -57,3 +57,24 @@ jobs:
         with:
           projects: 'CI'
           sonar-token: ${{ secrets.SONAR_TOKEN }}
+
+  release:
+    runs-on: windows-latest
+    needs: 
+    - build      
+    - test
+    if: github.ref == 'refs/heads/main'
+    steps:   
+    - name: Display GitVersion outputs
+      run: |
+        echo "Version: ${{ needs.build.outputs.Version }}" 
+        echo "CommitsSinceVersionSource: ${{ needs.build.outputs.CommitsSinceVersionSource }}" 
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      if: github.ref == 'refs/heads/main' && needs.build.outputs.CommitsSinceVersionSource > 0 #Only create a release if there has been a commit/version change
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      with:
+        tag_name: ${{ needs.build.outputs.Version }}
+        release_name: Release ${{ needs.build.outputs.Version }}
