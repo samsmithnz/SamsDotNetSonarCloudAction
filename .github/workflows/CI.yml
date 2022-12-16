@@ -58,7 +58,7 @@ jobs:
       - name: Test this repo
         uses: ./ # the ./ runs the action.yml in this repo 
         with:
-          projects: '/Sample/ConsoleApp1/ConsoleApp1.csproj'
+          projects: 'Sample/ConsoleApp1/ConsoleApp1.csproj'
           dotnet-version: '7.0.x'
           sonarcloud-organization: samsmithnz-github
           sonarcloud-project: samsmithnz_SamsDotNetSonarCloudAction
