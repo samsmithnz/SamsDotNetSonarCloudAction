@@ -12,9 +12,9 @@ runs:
       run: |
         $ProjectArray = "${{ inputs.fileName}}".Split(",")
         #check if the action is being run with a Windows runner
-        echo "$ProjectArray.Count projects found"
-        echo "Runner os $runner.OS"
-        if ($runner.OS -ne 'Windows')        
+        echo "$(ProjectArray.Count) projects found"
+        echo "Runner os ${{ runner.os }}"
+        if (${{ runner.os }} -ne 'Windows')        
         {
           echo "This composite action currently only supports Windows runners. Linux is coming soon - maybe"
         }
