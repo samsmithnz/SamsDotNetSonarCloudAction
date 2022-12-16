@@ -4,19 +4,23 @@ inputs:
   projects:  # file name of the trx/xml file to process
     description: 'comma separated list of projects to analyze'
     required: true
+  dotnet-version:
+    description: 'the .NET version to use with .NET Setup'
+    required: true
+    default: 7.0.x
 runs:
   using: composite
   steps:
-    - name: Split results
+    - name: Pre-action checks
       shell: pwsh
       run: |
         $ProjectArray = "${{ inputs.fileName}}".Split(",")
         #check if the action is being run with a Windows runner
         echo "$($ProjectArray.Length) projects found"
-        echo "Runner os ${{ runner.os }}"
+        echo "Runner os: ${{ runner.os }}"
         if ("${{ runner.os }}" -ne 'Windows')        
         {
-          echo "This composite action currently only supports Windows runners. Linux is coming soon - maybe"
-          exit 1
+          echo "This composite action currently only supports Windows runners. Linux is coming soon - probably"
+          #exit 1
         }
   
