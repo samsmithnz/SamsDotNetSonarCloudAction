@@ -7,7 +7,7 @@ A SonarCloud composite action to analyze .NET projects
 To use, add this job to your workflow. This is currently marked to only run on the main branch - mostly to avoid the blocking of secrets with dependabot. 
 
 ```
-  sonarCloud
+  sonarCloud:
     name: Run SonarCloud analysis
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' 
