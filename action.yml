@@ -2,7 +2,7 @@ name: 'Sonar Cloud composite action to analyze .NET projects'
 description: 'Process .NET test results'
 inputs:
   projects:  
-    description: 'comma separated list of projects to analyze. Reminder to use the / separator to be compatible with Linux'
+    description: 'comma separated list of projects to analyze. Reminder to use the / separator to be compatible with Linux, and ensure only double quotes are used - single quotes will escape the command and not work as expected'
     required: true
   dotnet-version:
     description: 'the .NET version to use on .NET Setup'
@@ -81,9 +81,9 @@ runs:
     shell: pwsh
     run: |
       ./.sonar/scanner/dotnet-sonarscanner begin /k:"${{ inputs.sonarcloud-project }}" /o:"${{ inputs.sonarcloud-organization }}" /d:sonar.login="${{ inputs.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
-      if ("${{ inputs.pre-project-steps}}" -ne $null)
+      if ('${{ inputs.pre-project-steps}}' -ne $null)
       {
-        $preProjectStepsArray = "${{ inputs.pre-project-steps}}".Split(",")
+        $preProjectStepsArray = '${{ inputs.pre-project-steps}}'.Split(",")
         for ($i = 0; $i -lt $preProjectStepsArray.Length; $i++)
         {
           $preProjectStepsArray[$i]
