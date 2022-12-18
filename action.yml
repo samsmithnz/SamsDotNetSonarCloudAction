@@ -17,6 +17,9 @@ inputs:
   SONAR_TOKEN:
     description: 'the sonar token secret. Note that GitHub will keep this as a secret (***) as long is the input is a secret'
     required: true
+  pre-project-actions:
+    description: 'comma separated list of commands to run before the projects are built. For example - run dotnet restore'
+    required: false
 runs:
   using: 'composite'
   steps:
@@ -78,6 +81,14 @@ runs:
     shell: pwsh
     run: |
       ./.sonar/scanner/dotnet-sonarscanner begin /k:"${{ inputs.sonarcloud-project }}" /o:"${{ inputs.sonarcloud-organization }}" /d:sonar.login="${{ inputs.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
+      if ("${{ inputs.pre-project-actions}}" -ne $null)
+      {
+        $preProjectArray = "${{ inputs.pre-project-actions}}".Split(",")
+        for ($i = 0; $i -lt $preProjectArray.Length; $i++)
+        {
+          $preProjectArray[$i]
+        }
+      }
       $projectArray = "${{ inputs.projects}}".Split(",")
       for ($i = 0; $i -lt $projectArray.Length; $i++)
       {
