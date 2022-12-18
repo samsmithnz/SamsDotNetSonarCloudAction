@@ -47,6 +47,15 @@ jobs:
           sonarcloud-organization: samsmithnz-github
           sonarcloud-project: samsmithnz_SamsDotNetSonarCloudAction
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: Test this pre-processing steps 
+        uses: ./ # the ./ runs the action.yml in this repo 
+        with:
+          pre-project-steps: 'dotnet restore,dotnet test Sample/ConsoleApp1/ConsoleApp1.csproj'
+          projects: 'Sample/ConsoleApp1/ConsoleApp1.csproj'
+          dotnet-version: '7.0.x'
+          sonarcloud-organization: samsmithnz-github
+          sonarcloud-project: samsmithnz_SamsDotNetSonarCloudAction
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   linuxTest: 
     runs-on: ubuntu-latest
@@ -58,6 +67,15 @@ jobs:
       - name: Test this repo
         uses: ./ # the ./ runs the action.yml in this repo 
         with:
+          projects: 'Sample/ConsoleApp1/ConsoleApp1.csproj'
+          dotnet-version: '7.0.x'
+          sonarcloud-organization: samsmithnz-github
+          sonarcloud-project: samsmithnz_SamsDotNetSonarCloudAction
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: Test this pre-processing steps 
+        uses: ./ # the ./ runs the action.yml in this repo 
+        with:
+          pre-project-steps: 'dotnet restore,dotnet test Sample/ConsoleApp1/ConsoleApp1.csproj'
           projects: 'Sample/ConsoleApp1/ConsoleApp1.csproj'
           dotnet-version: '7.0.x'
           sonarcloud-organization: samsmithnz-github
