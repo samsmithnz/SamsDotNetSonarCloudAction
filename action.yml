@@ -81,6 +81,7 @@ runs:
       New-Item -Path ./.sonar/scanner -ItemType Directory
       dotnet tool update dotnet-sonarscanner --tool-path ./.sonar/scanner
   - name: Build and analyze
+    if: analyze
     env:
       pre-project-secret: ${{ inputs.pre-project-secret }}
     shell: pwsh
