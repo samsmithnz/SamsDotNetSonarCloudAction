@@ -50,7 +50,6 @@ jobs:
       - name: Test this pre-processing steps 
         uses: ./ # the ./ runs the action.yml in this repo 
         with:
-          pre-project-steps: 'dotnet restore,dotnet test "Sample/ConsoleApp1/ConsoleApp1.csproj"'
           projects: 'Sample/ConsoleApp1/ConsoleApp1.csproj'
           dotnet-version: '7.0.x'
           sonarcloud-organization: samsmithnz-github
@@ -75,7 +74,6 @@ jobs:
       - name: Test this pre-processing steps 
         uses: ./ # the ./ runs the action.yml in this repo 
         with:
-          pre-project-steps: 'dotnet restore,dotnet test "Sample/ConsoleApp1/ConsoleApp1.csproj"'
           projects: 'Sample/ConsoleApp1/ConsoleApp1.csproj'
           dotnet-version: '7.0.x'
           sonarcloud-organization: samsmithnz-github
