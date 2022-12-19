@@ -21,7 +21,7 @@ inputs:
     description: 'comma separated list of commands to run before the projects are built. For example - run dotnet restore'
     required: false
   pre-project-secret:
-    description: 'optional token secret for pre-project steps. Accessed in code with ${{ inputs dot pre-project-secret }}'
+    description: 'optional token secret for pre-project steps. Accessed in code with inputs.pre-project-secret operation (with the $ and {{}} syntax)'
     required: false
 runs:
   using: 'composite'
