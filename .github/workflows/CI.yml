@@ -31,7 +31,6 @@ jobs:
           echo "CommitsSinceVersionSource: ${{ steps.gitversion.outputs.CommitsSinceVersionSource }}"
           
           
-  # checkout the code from this branch, and then test the action from here
   windowsTest: 
     runs-on: windows-latest
     steps:    
@@ -39,7 +38,7 @@ jobs:
         uses: actions/checkout@v3
         with: 
           ref: ${{ github.ref }}
-      - name: Test this repo
+      - name: Test this action
         uses: ./ # the ./ runs the action.yml in this repo 
         with:
           projects: 'Sample\ConsoleApp1\ConsoleApp1.csproj'
@@ -47,15 +46,7 @@ jobs:
           sonarcloud-organization: samsmithnz-github
           sonarcloud-project: samsmithnz_SamsDotNetSonarCloudAction
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      - name: Test this pre-processing steps 
-        uses: ./ # the ./ runs the action.yml in this repo 
-        with:
-          pre-project-steps: 'dotnet restore,dotnet test "Sample/ConsoleApp1/ConsoleApp1.csproj"'
-          projects: 'Sample/ConsoleApp1/ConsoleApp1.csproj'
-          dotnet-version: '7.0.x'
-          sonarcloud-organization: samsmithnz-github
-          sonarcloud-project: samsmithnz_SamsDotNetSonarCloudAction
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
 
   linuxTest: 
     runs-on: ubuntu-latest
@@ -64,7 +55,7 @@ jobs:
         uses: actions/checkout@v3
         with: 
           ref: ${{ github.ref }}
-      - name: Test this repo
+      - name: Test this action
         uses: ./ # the ./ runs the action.yml in this repo 
         with:
           projects: 'Sample/ConsoleApp1/ConsoleApp1.csproj'
@@ -72,15 +63,7 @@ jobs:
           sonarcloud-organization: samsmithnz-github
           sonarcloud-project: samsmithnz_SamsDotNetSonarCloudAction
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      - name: Test this pre-processing steps 
-        uses: ./ # the ./ runs the action.yml in this repo 
-        with:
-          pre-project-steps: 'dotnet restore,dotnet test "Sample/ConsoleApp1/ConsoleApp1.csproj"'
-          projects: 'Sample/ConsoleApp1/ConsoleApp1.csproj'
-          dotnet-version: '7.0.x'
-          sonarcloud-organization: samsmithnz-github
-          sonarcloud-project: samsmithnz_SamsDotNetSonarCloudAction
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
 
   release:
     runs-on: windows-latest
