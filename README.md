@@ -13,7 +13,7 @@ To use, add this job to your workflow. This is currently marked to only run on t
     if: github.ref == 'refs/heads/main' 
     steps:
       - name: Run Sonarcloud test
-        uses: samsmithnz/SamsDotNetSonarCloudAction@1.1.0
+        uses: samsmithnz/SamsDotNetSonarCloudAction@1.1.2
         with:
           projects: 'Sample/ConsoleApp1/ConsoleApp1.csproj'
           dotnet-version: '7.0.x'
@@ -31,12 +31,13 @@ I've also created an optional parameter to add any required steps before the pro
     if: github.ref == 'refs/heads/main' 
     steps:
       - name: Run Sonarcloud test
-        uses: samsmithnz/SamsDotNetSonarCloudAction@1.1.0
+        uses: samsmithnz/SamsDotNetSonarCloudAction@1.1.2
         with:
-          pre-project-steps: 'dotnet nuget add source "https://nuget.pkg.github.com/samsmithnz/index.json" --name "githubfeed" --username "user@email.com" --password "${{ secrets.PackagesReadPAT_Token }}",dotnet restore Sample/ConsoleApp1/ConsoleApp1.csproj'
           projects: 'Sample/ConsoleApp1/ConsoleApp1.csproj'
           dotnet-version: '7.0.x'
           sonarcloud-organization: samsmithnz-github
           sonarcloud-project: samsmithnz_SamsDotNetSonarCloudAction
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          pre-project-steps: 'dotnet nuget add source "https://nuget.pkg.github.com/samsmithnz/index.json" --name "githubfeed" --username "user@email.com" --password "${{ inputs.pre-project-secret }}",dotnet restore Sample/ConsoleApp1/ConsoleApp1.csproj'
+          pre-project-secret: ${{ secrets.PackagesReadPAT_Token }}
 ```
