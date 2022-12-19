@@ -81,7 +81,7 @@ jobs:
           sonarcloud-project: samsmithnz_SamsDotNetSonarCloudAction
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           pre-project-steps: 'dotnet restore,dotnet test "Sample/ConsoleApp1/ConsoleApp1.csproj"'
-          pre-project-secret: ${{ secrets.PreProjectSecretTest }}
+          pre-project-secret: ${{ secrets.PREPROJECTSECRETTEST }}
 
   release:
     runs-on: windows-latest
