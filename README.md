@@ -22,7 +22,7 @@ To use, add this job to your workflow. This is currently marked to only run on t
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 ```
 
-I've also created an optional parameter to add any required steps before the projects are scanned (e.g. connect to NuGet registry and restore). An example:
+I've also created an optional parameter to add any required steps before the projects are scanned (e.g. connect to NuGet registry and restore). I've also created an optional parameter to add any required steps before the projects are scanned (e.g. connect to NuGet registry and restore). An example:
 
 ```
   sonarCloud:
