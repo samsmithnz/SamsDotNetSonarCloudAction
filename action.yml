@@ -52,7 +52,7 @@ runs:
     with:
       fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
   - name: Install .NET 7 SDK
-    uses: actions/setup-dotnet@v3.0.3
+    uses: actions/setup-dotnet@v3.2.0
     with:
       dotnet-version: ${{ inputs.dotnet-version }}
   - name: Cache SonarCloud packages
