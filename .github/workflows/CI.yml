@@ -46,6 +46,7 @@ jobs:
           sonarcloud-organization: samsmithnz-github
           sonarcloud-project: samsmithnz_SamsDotNetSonarCloudAction
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
   linuxTest: 
@@ -63,6 +64,7 @@ jobs:
           sonarcloud-organization: samsmithnz-github
           sonarcloud-project: samsmithnz_SamsDotNetSonarCloudAction
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
   release:
