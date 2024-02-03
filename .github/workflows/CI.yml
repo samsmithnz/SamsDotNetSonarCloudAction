@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     outputs: # https://stackoverflow.com/questions/59175332/using-output-from-a-previous-job-in-a-new-one-in-a-github-action
       Version: ${{ steps.gitversion.outputs.SemVer }}
+      Major: ${{ steps.gitversion.outputs.Major }}
+      Minor: ${{ steps.gitversion.outputs.Minor }}
       CommitsSinceVersionSource: ${{ steps.gitversion.outputs.CommitsSinceVersionSource }}  
     steps:    
       - uses: actions/checkout@v4
@@ -42,7 +44,7 @@ jobs:
         uses: ./ # the ./ runs the action.yml in this repo 
         with:
           projects: 'Sample\ConsoleApp1\ConsoleApp1.csproj'
-          dotnet-version: '7.0.x'
+          dotnet-version: '8.0.x'
           sonarcloud-organization: samsmithnz-github
           sonarcloud-project: samsmithnz_SamsDotNetSonarCloudAction
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -60,7 +62,7 @@ jobs:
         uses: ./ # the ./ runs the action.yml in this repo 
         with:
           projects: 'Sample/ConsoleApp1/ConsoleApp1.csproj'
-          dotnet-version: '7.0.x'
+          dotnet-version: '8.0.x'
           sonarcloud-organization: samsmithnz-github
           sonarcloud-project: samsmithnz_SamsDotNetSonarCloudAction
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -86,3 +88,19 @@ jobs:
         tag: "v${{ needs.build.outputs.Version }}"
         name: "v${{ needs.build.outputs.Version }}"
         token: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+    - name: Create Major version Release (update) #Create or Update the major version release. e.g. 'v2'
+      uses: ncipollo/release-action@v1
+      if: needs.build.outputs.CommitsSinceVersionSource > 0 
+      with:
+        tag: "v${{ needs.build.outputs.Major }}"
+        name: "v${{ needs.build.outputs.Major }}"
+        allowUpdates: true
+        token: ${{ secrets.GITHUB_TOKEN }} 
+    - name: Create Minor version Release (update) #Create or Update the minor version release. e.g. 'v2.1'
+      uses: ncipollo/release-action@v1
+      if: needs.build.outputs.CommitsSinceVersionSource > 0 
+      with:
+        tag: "v${{ needs.build.outputs.Major }}.${{ needs.build.outputs.Minor }}"
+        name: "v${{ needs.build.outputs.Major }}.${{ needs.build.outputs.Minor }}"
+        allowUpdates: true
+        token: ${{ secrets.GITHUB_TOKEN }} #
