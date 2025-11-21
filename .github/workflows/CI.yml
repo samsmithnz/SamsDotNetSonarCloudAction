@@ -16,7 +16,7 @@ jobs:
       Minor: ${{ steps.gitversion.outputs.Minor }}
       CommitsSinceVersionSource: ${{ steps.gitversion.outputs.CommitsSinceVersionSource }}  
     steps:    
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0 #fetch-depth is needed for GitVersion
           #Install and calculate the new version with GitVersion          
@@ -37,7 +37,7 @@ jobs:
     runs-on: windows-latest
     steps:    
       - name: checkout the code from this branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with: 
           ref: ${{ github.ref }}
       - name: Test this action
@@ -55,7 +55,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:    
       - name: checkout the code from this branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with: 
           ref: ${{ github.ref }}
       - name: Test this action
